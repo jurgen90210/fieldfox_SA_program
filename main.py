@@ -52,9 +52,9 @@ class WindowClass(QMainWindow, uic.loadUiType('main.ui')[0]):
         self.btn_start.setEnabled(False)
 
     def load_default_settings(self):
-        self.ed_ip.setText('192.168.0.124')
-        self.ed_start_freq.setText('9.9995e9')
-        self.ed_stop_freq.setText('10.0005e9')
+        self.ed_ip.setText('A-N9912A-31538')
+        self.ed_start_freq.setText('1.220e9')
+        self.ed_stop_freq.setText('1.520e9')
         self.ed_n_points.setText('401')
         self.ed_n_samples.setText('50')
         self.ed_interval.setText('0.2')
@@ -72,7 +72,7 @@ class WindowClass(QMainWindow, uic.loadUiType('main.ui')[0]):
             msg = self.myFieldFox.read()
 
             # Change mode to SA
-            self.myFieldFox.write("INST:SEL 'SA'; *OPC?")
+            self.myFieldFox.write("INST:SEL 'NA'; *OPC?")
             self.myFieldFox.read()
 
             self.log("Successfully connected")
@@ -157,6 +157,7 @@ class WindowClass(QMainWindow, uic.loadUiType('main.ui')[0]):
         while count < n_samples:
             begin_time = time.time()
             self.myFieldFox.write("TRACE:DATA?")
+            time.sleep(1)
             curr_dat = [float(x) for x in self.myFieldFox.read().split(",")]
 
             max_curr_data.append(max(curr_dat))
